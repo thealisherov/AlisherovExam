@@ -57,7 +57,7 @@ const Home = () => {
               <button
                 className={`px-6 py-3 rounded-lg border shadow-sm font-medium cursor-pointer transition ${
                   isDark
-                    ? "border-gray-500 hover:bg-gray-800 text-white"
+                    ? "border-gray-500 hover:bg-gray-700 text-white"
                     : "border-gray-400 hover:bg-gray-100 text-black"
                 }`}
               >

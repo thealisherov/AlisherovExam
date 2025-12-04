@@ -65,7 +65,7 @@ const Header = () => {
           <button
             onClick={() => setDark(!isDark)}
             className={`p-2 rounded-lg transition cursor-pointer ${
-              isDark ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"
+              isDark ? "bg-gray-700 hover:bg-gray-700" : "bg-gray-200 hover:bg-gray-300"
             }`}
           >
             {isDark ? <FiSun /> : <FaRegMoon />}
