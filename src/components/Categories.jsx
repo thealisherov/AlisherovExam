@@ -16,7 +16,6 @@ const Categories = () => {
       `}
     >
       <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8">
-
         {/* Mobile Filter Chips */}
         <div className="lg:hidden flex gap-3 overflow-x-auto pb-2 no-scrollbar">
           {categories.map((btn) => (
@@ -45,7 +44,11 @@ const Categories = () => {
           className={`
             hidden lg:block w-72 p-6 rounded-2xl h-fit sticky top-6 border
             transition-colors
-            ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-300"}
+            ${
+              isDark
+                ? "bg-gray-800 border-gray-700"
+                : "bg-white border-gray-300"
+            }
           `}
         >
           <h3 className="text-3xl font-extrabold mb-7">Categories</h3>
@@ -56,9 +59,7 @@ const Categories = () => {
                 key={filterBtn.key}
                 onClick={() =>
                   navigate(
-                    filterBtn.key === "all"
-                      ? "/all"
-                      : `/all/${filterBtn.key}`
+                    filterBtn.key === "all" ? "/all" : `/all/${filterBtn.key}`
                   )
                 }
                 className={`
@@ -84,11 +85,7 @@ const Categories = () => {
             <div
               key={block.key}
               onClick={() =>
-                navigate(
-                  block.key === "all"
-                    ? "/all"
-                    : `/all/${block.key}`
-                )
+                navigate(block.key === "all" ? "/all" : `/all/${block.key}`)
               }
               className={`
                 cursor-pointer p-6 rounded-2xl h-[240px] flex flex-col
@@ -116,7 +113,6 @@ const Categories = () => {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );

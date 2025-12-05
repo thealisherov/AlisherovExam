@@ -1,49 +1,18 @@
-import React, { useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { signupSchema } from "./signUpSchema";
+import { useNavigate } from "react-router-dom";
 import { DarkContext } from "../Contex/DarkProvider";
 
-const LoginPage = () => {
+const SignUp = () => {
   const navigate = useNavigate();
   const { isDark } = useContext(DarkContext);
 
-  useEffect(() => {
-    if (!localStorage.getItem("admin")) {
-      localStorage.setItem(
-        "admin",
-        JSON.stringify({
-          email: "admin@example.com",
-          password: "admin123",
-          name: "Admin",
-          role: "admin",
-        })
-      );
-    }
-  }, []);
-
-  const loginSchema = Yup.object({
-    email: Yup.string().email("Email is not valid").required("Email is required"),
-    password: Yup.string().required("Password is required"),
-  });
-
-  const handleLogin = ({ email, password }) => {
-    const admin = JSON.parse(localStorage.getItem("admin"));
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (admin && admin.email === email && admin.password === password) {
-      localStorage.setItem("auth", JSON.stringify(admin));
-      alert("Admin login successful!");
-      return navigate("/dashboard");
-    }
-
-    if (user && user.email === email && user.password === password) {
-      localStorage.setItem("auth", JSON.stringify(user));
-      alert("Login successful!");
-      return navigate("/");
-    }
-
-    alert("Invalid email or password");
+  const handleSignup = (values) => {
+    localStorage.setItem("user", JSON.stringify({ ...values, role: "user" }));
+    localStorage.setItem("auth", JSON.stringify({ ...values, role: "user" }));
+    alert("You are registered successfully!");
+    navigate("/");
   };
 
   return (
@@ -59,11 +28,26 @@ const LoginPage = () => {
           ${isDark ? "bg-gray-800 text-white border-gray-700" : "bg-white text-gray-900 border-gray-200"}
         `}
       >
-        <h2 className="text-3xl font-bold mb-2">Login</h2>
-        <p className={`${isDark ? "text-gray-300" : "text-gray-600"} mb-6`}>Sign in to your account</p>
+        <h2 className="text-3xl font-bold mb-2">Sign Up</h2>
+        <p className={`${isDark ? "text-gray-300" : "text-gray-600"} mb-6`}>Create a new account</p>
 
-        <Formik initialValues={{ email: "", password: "" }} validationSchema={loginSchema} onSubmit={handleLogin}>
+        <Formik initialValues={{ name: "", email: "", password: "" }} validationSchema={signupSchema} onSubmit={handleSignup}>
           <Form className="flex flex-col gap-4">
+            <div>
+              <Field
+                name="name"
+                placeholder="Full name"
+                className={`
+                  w-full p-3 rounded-lg border-2 focus:outline-none transition
+                  ${isDark 
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-300 focus:border-blue-400"
+                    : "bg-white border-gray-300 text-gray-900 placeholder-gray-400 focus:border-blue-500"
+                  }
+                `}
+              />
+              <ErrorMessage name="name" component="p" className="text-red-500 text-sm mt-1" />
+            </div>
+
             <div>
               <Field
                 name="email"
@@ -84,7 +68,7 @@ const LoginPage = () => {
               <Field
                 name="password"
                 type="password"
-                placeholder="Password"
+                placeholder="Password (min 6 characters)"
                 className={`
                   w-full p-3 rounded-lg border-2 focus:outline-none transition
                   ${isDark 
@@ -103,18 +87,18 @@ const LoginPage = () => {
                 ${isDark ? "bg-blue-700 hover:bg-blue-800" : "bg-blue-600 hover:bg-blue-700"} text-white
               `}
             >
-              Login
+              Create Account
             </button>
           </Form>
         </Formik>
 
         <p className={`text-center mt-6 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
-          Don't have an account?
+          Already have an account?
           <button
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/login")}
             className="cursor-pointer text-blue-500 font-semibold hover:underline ml-1"
           >
-            Sign up
+            Login
           </button>
         </p>
       </div>
@@ -122,4 +106,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUp;

@@ -44,6 +44,9 @@ const Header = () => {
           <NavLink className={linkStyle} to="/all">All Products</NavLink>
           <NavLink className={linkStyle} to="/about">About</NavLink>
           <NavLink className={linkStyle} to="/users">Users</NavLink>
+          <NavLink className={linkStyle} to="/dashboard">Dashboard</NavLink>
+
+          
         </div>
 
         {/* RIGHT SIDE ACTIONS */}
@@ -79,7 +82,9 @@ const Header = () => {
                 : "border-gray-300 hover:bg-gray-100"
             }`}
           >
-            Log in
+         <NavLink to="/login">
+             Log in
+         </NavLink>
           </button>
 
         </div>
@@ -140,13 +145,15 @@ const Header = () => {
             </button>
 
             <button
-              className={`px-4 py-1 border rounded-lg cursor-pointer transition ${
+              className={` px-4 py-1 border rounded-lg cursor-pointer transition ${
                 isDark
                   ? "border-gray-600 hover:bg-gray-700"
                   : "border-gray-300 hover:bg-gray-100"
               }`}
             >
-              Log in
+         <NavLink to="/login">
+               Log in
+         </NavLink>
             </button>
 
           </div>
